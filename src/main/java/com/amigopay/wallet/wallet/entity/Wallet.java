@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -23,6 +24,8 @@ import java.util.UUID;
 public class Wallet {
 
     private static final BigDecimal INITIAL_BONUS = new BigDecimal("1000.00");
+    private static final int SCALE = 2;
+    private static final RoundingMode ROUNDING = RoundingMode.HALF_EVEN;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -67,7 +70,7 @@ public class Wallet {
             throw new BusinessException(ValidationMessage.INSUFFICIENT_BALANCE_DEBIT);
         }
 
-        this.balance = this.balance.subtract(amount);
+        this.balance = this.balance.subtract(amount).setScale(SCALE, ROUNDING);
     }
 
     /**
@@ -75,7 +78,7 @@ public class Wallet {
      */
     public void credit(BigDecimal amount) {
         validateAmount(amount);
-        this.balance = this.balance.add(amount);
+        this.balance = this.balance.add(amount).setScale(SCALE, ROUNDING);
     }
 
     /**

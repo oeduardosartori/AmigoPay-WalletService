@@ -1,5 +1,6 @@
 package com.amigopay.wallet.messaging.event.consumer;
 
+import com.amigopay.events.PaymentInitiatedEvent;
 import com.amigopay.wallet.messaging.event.consumer.handler.WalletEventHandler;
 import com.amigopay.events.UserCreatedEvent;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,26 @@ public class WalletEventListener {
             ack.acknowledge();
         } catch (Exception ex) {
             log.error("Failed to process 'user.created' for userId={}", event.id(), ex);
+        }
+    }
+
+    @KafkaListener(
+            topics = "payment.initiated",
+            groupId = "wallet-consumer",
+            containerFactory = "kafkaListenerContainerFactory"
+    )
+    public void handlePaymentInitiated(
+            ConsumerRecord<String, PaymentInitiatedEvent> record,
+            Acknowledgment ack
+    ) {
+        PaymentInitiatedEvent event = record.value();
+        log.info("Received 'payment.initiated' event for paymentId={}", event.paymentId());
+
+        try {
+            eventHandler.processPaymentInitiated(event);
+            ack.acknowledge();
+        } catch (Exception ex) {
+            log.error("Failed to process 'payment.initiated' for paymentId={}", event.paymentId(), ex);
         }
     }
 }
