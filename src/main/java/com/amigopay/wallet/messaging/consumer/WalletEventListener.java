@@ -1,7 +1,7 @@
-package com.amigopay.wallet.messaging.event.consumer;
+package com.amigopay.wallet.messaging.consumer;
 
 import com.amigopay.events.PaymentInitiatedEvent;
-import com.amigopay.wallet.messaging.event.consumer.handler.WalletEventHandler;
+import com.amigopay.wallet.messaging.consumer.handler.WalletEventHandler;
 import com.amigopay.events.UserCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class WalletEventListener {
     @KafkaListener(
             topics = "user.created",
             groupId = "wallet-consumer",
-            containerFactory = "kafkaListenerContainerFactory"
+            containerFactory = "userCreatedKafkaListenerContainerFactory"
     )
     public void handleUserCreated(
             ConsumerRecord<String, UserCreatedEvent> record,
@@ -40,7 +40,7 @@ public class WalletEventListener {
     @KafkaListener(
             topics = "payment.initiated",
             groupId = "wallet-consumer",
-            containerFactory = "kafkaListenerContainerFactory"
+            containerFactory = "paymentInitiatedKafkaListenerContainerFactory"
     )
     public void handlePaymentInitiated(
             ConsumerRecord<String, PaymentInitiatedEvent> record,

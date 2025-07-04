@@ -1,4 +1,4 @@
-package com.amigopay.wallet.messaging.event.producer;
+package com.amigopay.wallet.messaging.producer;
 
 
 import com.amigopay.events.PaymentDoneEvent;

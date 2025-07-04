@@ -1,8 +1,8 @@
-package com.amigopay.wallet.messaging.event.producer.impl;
+package com.amigopay.wallet.messaging.producer.impl;
 
 import com.amigopay.events.PaymentDoneEvent;
 import com.amigopay.events.PaymentRejectedEvent;
-import com.amigopay.wallet.messaging.event.producer.WalletEventPublisher;
+import com.amigopay.wallet.messaging.producer.WalletEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

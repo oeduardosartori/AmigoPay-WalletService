@@ -1,4 +1,4 @@
-package com.amigopay.wallet.messaging.event.consumer.handler;
+package com.amigopay.wallet.messaging.consumer.handler;
 
 import com.amigopay.events.PaymentDoneEvent;
 import com.amigopay.events.PaymentInitiatedEvent;
@@ -7,7 +7,7 @@ import com.amigopay.events.UserCreatedEvent;
 
 import com.amigopay.events.enums.PaymentStatus;
 import com.amigopay.wallet.exception.BusinessException;
-import com.amigopay.wallet.messaging.event.producer.WalletEventPublisher;
+import com.amigopay.wallet.messaging.producer.WalletEventPublisher;
 import com.amigopay.wallet.wallet.service.WalletService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
